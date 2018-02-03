@@ -69,7 +69,7 @@ export class PitchTypesThrownGraph extends React.Component {
 	private formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
 		return {
-			title: { text: 'Number Pitch Types Thrown By Pitcher' },
+			title: { text: 'Number Of Pitch Types Thrown By Pitcher' },
 			xAxis: {
 				categories: formatted.xAxesValues,
 				title: {
