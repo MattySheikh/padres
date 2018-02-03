@@ -1,0 +1,96 @@
+import { models } from '@db/models';
+import { Sequelize } from 'sequelize';
+
+interface QueryOptions {
+	groupBy?: string[],
+	pitchType?: string
+}
+
+interface Columns {
+	[key: string]: string;
+}
+
+interface WhereClause {
+	pitchType?: string;
+}
+
+const COLUMN_MAP: Columns = {
+	pitcherId: 'pitches.pitcherId',
+	inning: 'inning',
+	pitchType: 'pitchType',
+	pitcherName: 'pitcher.pitcherName'
+}
+
+export class Pitches {
+	private pitchesModel: any; // sequelize messed up their Model type so it's impossible to import it
+
+	constructor() {
+		this.pitchesModel = models.pitches;
+	}
+
+	public getBy = async (type: string, queryOptions: QueryOptions): Promise<object[]> => {
+		const func = `get${_.capitalize(type)}`;
+		return await this[func](queryOptions);
+	}
+
+	public getType = async (queryOptions: QueryOptions): Promise<object[]> => {
+		const pitchTypeCount = [Sequelize.fn('COUNT', Sequelize.col('pitchType')), 'pitchTypeCount'];
+		const pitches = await this.pitchesModel.findAll({
+			attributes: ['pitches.pitcherId', 'pitchType', pitchTypeCount],
+			group: this.mapGroupBy(queryOptions.groupBy),
+			where: this.buildWhere(queryOptions),
+			include: [{
+				model: models.pitchers,
+				attributes: [['pitcher', 'pitcherName']]
+			}],
+			raw: true
+		});
+
+		return this.fixColumns(pitches);
+	};
+
+	public getSpeed = async (queryOptions: QueryOptions): Promise<object[]> => {
+		const avgSpeed = [Sequelize.fn('AVG', Sequelize.col('relSpeed')), 'avgSpeed'];
+
+		const pitches = await this.pitchesModel.findAll({
+			attributes: ['pitcherId', 'inning', 'pitchType', avgSpeed],
+			group: this.mapGroupBy(queryOptions.groupBy),
+			where: this.buildWhere(queryOptions),
+			include: [{
+				model: models.pitchers,
+				attributes: [['pitcher', 'pitcherName']]
+			}],
+			raw: true
+		});
+
+		return this.fixColumns(pitches);
+	}
+
+	private fixColumns = (pitches: object[]): object[] => {
+		// Due to the join, Sequelize adds the alias to the joined columns so we want to clean that up
+		return _.map(pitches, (pitch: any) => {
+			_.forOwn(COLUMN_MAP, (v, k) => {
+				// TODO - figure out pitcherId
+				if (v === k || k === 'pitcherId') return;
+				pitch[k] = pitch[v];
+				delete pitch[v];
+			});
+
+			return pitch;
+		});
+	}
+
+	private buildWhere = (queryOptions: QueryOptions): WhereClause => {
+		const where: WhereClause = {};
+		if (queryOptions.pitchType) {
+			where.pitchType = queryOptions.pitchType;
+		}
+
+		return where;
+	}
+
+	private mapGroupBy = (groupByOptions: string[]): null | string[] => {
+		groupByOptions = _.filter(_.map(groupByOptions, (g: string) => COLUMN_MAP[g]));
+		return _.isEmpty(groupByOptions) ? null : groupByOptions;
+	}
+}

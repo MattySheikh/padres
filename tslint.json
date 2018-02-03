@@ -1,0 +1,17 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-react"
+    ],
+    "jsRules": {},
+    "rules": {
+        "indent": [true, "tabs", 4],
+        "quotemark": [true, "single"],
+        "interface-name": [true, "never-prefix"],
+        "trailing-comma": [false],
+        "jsx-no-lambda": [false],
+        "align": [true, "statements", "members", "elements"]
+    },
+    "rulesDirectory": []
+}

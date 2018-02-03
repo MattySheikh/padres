@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es6",
+		"noImplicitAny": false,
+		"outDir": "./dist/",
+		"sourceMap": true,
+		"jsx": "react",
+		"preserveConstEnums": true,
+		"baseUrl": "src",
+		"paths": {
+			"@client/*": ["client/*"],
+			"@components/*": ["client/components/*"],
+			"@reducers/*": ["client/reducers/*"],
+			"@styles/*": ["../assets/styles/*"],
+			"@middleware/*": ["server/middleware/*"],
+			"@routes/*": ["server/routes/*"],
+			"@services/*": ["server/services/*"],
+			"@db/*": ["server/db/*"],
+			"@models/*": ["server/db/models/*"]
+		}
+	},
+	"exclude": [
+		"node_modules"
+	]
+}

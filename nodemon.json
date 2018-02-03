@@ -1,0 +1,8 @@
+{
+  "ignoreRoot": [".git"],
+  "exec": "node node_modules/ts-node/dist/bin.js --type-check -r tsconfig-paths/register src/server/server.tsx",
+  "ext": "js json tsx",
+  "watch": [
+    "./src/server"
+  ]
+}
