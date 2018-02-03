@@ -3,6 +3,7 @@ import { models } from '@db/models';
 import * as csvtojson from 'csvtojson';
 import * as _ from 'lodash';
 import * as path from 'path';
+import * as fs from 'fs';
 
 interface Model {
 	destroy: (options: object) => void;
@@ -20,6 +21,9 @@ if (!csvFilePath) {
 }
 
 const file = path.resolve(csvFilePath);
+if (!fs.existsSync(file)) {
+	throw new Error('Specified file does not exist');
+}
 
 (async () => {
 	const csvColumnsToSqlColumns: ColumnsMap = {
