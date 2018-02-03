@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Db } from '@db/db';
+import * as _ from 'lodash';
 
 interface DbModels {
 	[key: string]: object
