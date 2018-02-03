@@ -2,6 +2,15 @@ import { Db } from '@db/db';
 import { models } from '@db/models';
 import * as csvtojson from 'csvtojson';
 import * as _ from 'lodash';
+import * as path from 'path';
+
+const csvFilePath = process.argv[2];
+if (!csvFilePath) {
+	throw new Error('Please provide a path to the file');
+}
+
+const file = path.resolve(csvFilePath);
+
 
 (async () => {
 	const csvColumnsToSqlColumns = {
@@ -53,14 +62,13 @@ import * as _ from 'lodash';
 	};
 
 	const sqlColumnsToCsvColumns = _.invert(csvColumnsToSqlColumns);
-	const csvFilePath = './pitches.csv';
 
 	// Clear the tables if we have imported before
 	await Promise.all(_.map(models, async (model: any) => {
 		return await model.destroy({ truncate: true });
 	}));
 
-	csvtojson({ ignoreEmpty: true }).fromFile(csvFilePath).on('json', async (obj: any) => {
+	csvtojson({ ignoreEmpty: true }).fromFile(file).on('json', async (obj: any) => {
 		_.forEach(models, async (model: any) => {
 			const columnKeys = _.values(_.pick(sqlColumnsToCsvColumns, _.keys(model.rawAttributes)));
 			const values = _.pick(obj, columnKeys);

@@ -4,7 +4,7 @@ export default pitches = (sequelize: any, DataTypes: any) => {
 		gameId: DataTypes.STRING,
 		pitcherId: DataTypes.TINYINT,
 		pitchNo: DataTypes.TINYINT,
-		time: DataTypes.DATE,
+		time: DataTypes.TIME,
 		inning: DataTypes.TINYINT,
 		topBottom: DataTypes.ENUM('Bottom', 'Top'),
 		outs: DataTypes.TINYINT,

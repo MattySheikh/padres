@@ -15,4 +15,4 @@
 
 * To import data
 	* Drop `pitches.csv` into the root of this repo
-	* Run `yarn run import` to import the csv and split it into tables
+	* Run `yarn run import /path/to/file.csv` to import the csv and split it into tables
