@@ -4,6 +4,16 @@ import * as csvtojson from 'csvtojson';
 import * as _ from 'lodash';
 import * as path from 'path';
 
+interface Model {
+	destroy: (options: object) => void;
+	upsert: (updates: object) => void;
+	rawAttributes: object;
+}
+
+interface ColumnsMap {
+	[key: string]: string;
+}
+
 const csvFilePath = process.argv[2];
 if (!csvFilePath) {
 	throw new Error('Please provide a path to the file');
@@ -11,9 +21,8 @@ if (!csvFilePath) {
 
 const file = path.resolve(csvFilePath);
 
-
 (async () => {
-	const csvColumnsToSqlColumns = {
+	const csvColumnsToSqlColumns: ColumnsMap = {
 		gameid: 'gameId',
 		game_date: 'gameDate',
 		stadium: 'stadium',
@@ -64,18 +73,18 @@ const file = path.resolve(csvFilePath);
 	const sqlColumnsToCsvColumns = _.invert(csvColumnsToSqlColumns);
 
 	// Clear the tables if we have imported before
-	await Promise.all(_.map(models, async (model: any) => {
+	await Promise.all(_.map(models, async (model: Model) => {
 		return await model.destroy({ truncate: true });
 	}));
 
-	csvtojson({ ignoreEmpty: true }).fromFile(file).on('json', async (obj: any) => {
-		_.forEach(models, async (model: any) => {
+	csvtojson({ ignoreEmpty: true }).fromFile(file).on('json', async (obj: object) => {
+		_.forEach(models, async (model: Model) => {
 			const columnKeys = _.values(_.pick(sqlColumnsToCsvColumns, _.keys(model.rawAttributes)));
 			const values = _.pick(obj, columnKeys);
 
 			// Convert to keys
 			const newVals = _.mapKeys(values, (val, key) => {
-				return (csvColumnsToSqlColumns as any)[key];
+				return csvColumnsToSqlColumns[key];
 			});
 
 			await model.upsert(newVals);

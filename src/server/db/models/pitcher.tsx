@@ -1,5 +1,5 @@
 let pitchers;
-export default pitchers = (sequelize: any, DataTypes: any) => {
+export default pitchers = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes) => {
 	const pitchers = sequelize.define('pitchers',
 		{
 			pitcher: DataTypes.STRING,
@@ -11,7 +11,7 @@ export default pitchers = (sequelize: any, DataTypes: any) => {
 		}
 	);
 
-	pitchers.associate = (models: any) => {
+	pitchers.associate = (models: SequelizeModels) => {
 		pitchers.hasMany(models.pitches, {
 			foreignKey: 'pitcherId',
 			sourceKey: 'pitcherId'

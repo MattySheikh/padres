@@ -2,7 +2,8 @@
  * The entry point of our application. It sets up routes and determines where views go.
  */
 import * as _ from 'lodash';
-global._ = _;
+
+(global as any)._ = _;
 
 import '@db/models';
 import { AppRouter } from '@routes/app-router';

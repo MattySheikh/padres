@@ -16,7 +16,7 @@ fs.readdirSync(__dirname).forEach((file) => {
 	db[model.name] = model;
 });
 
-_.forOwn(db, function(model: any) {
+_.forOwn(db, function(model: SequelizeModels) {
 	if (model.associate) {
 		model.associate(db);
 	}

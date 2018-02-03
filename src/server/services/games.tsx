@@ -33,8 +33,8 @@ export class Pitches {
 
 		const pitches = await this.pitchesModel.findAll({
 			attributes: ['pitcherId', 'inning', 'pitchType', avgSpeed],
-			group: this.mapGroupBy(queryOptions.groupBy),
-			where: this.buildWhere(queryOptions),
+			group: [],
+			where: {},
 			include: [{
 				model: models.pitchers,
 				attributes: [['pitcher', 'pitcherName']]
@@ -42,6 +42,6 @@ export class Pitches {
 			raw: true
 		});
 
-		return this.fixColumns(pitches);
+		return pitches;
 	}
 }

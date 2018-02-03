@@ -1,5 +1,7 @@
 let games;
-export default games = (sequelize: any, DataTypes: any) => {
+import { DataTypes } from 'sequelize';
+
+export default games = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes) => {
 	const games = sequelize.define('games',
 		{
 			gameId: {
@@ -11,11 +13,11 @@ export default games = (sequelize: any, DataTypes: any) => {
 		}
 	);
 
-	games.associate = (models: any) => {
+	games.associate = (models: SequelizeModels) => {
 		games.hasMany(models.pitches, {
 			foreignKey: 'gameId',
 			sourceKey: 'gameId'
-		})
+		});
 	};
 
 	return games;

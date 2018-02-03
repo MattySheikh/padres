@@ -6,15 +6,11 @@ interface QueryOptions {
 	pitchType?: string
 }
 
-interface Columns {
-	[key: string]: string;
-}
-
 interface WhereClause {
 	pitchType?: string;
 }
 
-const COLUMN_MAP: Columns = {
+const COLUMN_MAP: GenericObject = {
 	pitcherId: 'pitches.pitcherId',
 	inning: 'inning',
 	pitchType: 'pitchType',
@@ -30,7 +26,7 @@ export class Pitches {
 
 	public getBy = async (type: string, queryOptions: QueryOptions): Promise<object[]> => {
 		const func = `get${_.capitalize(type)}`;
-		return await this[func](queryOptions);
+		return await (this as any)[func](queryOptions);
 	}
 
 	public getType = async (queryOptions: QueryOptions): Promise<object[]> => {
@@ -68,7 +64,7 @@ export class Pitches {
 
 	private fixColumns = (pitches: object[]): object[] => {
 		// Due to the join, Sequelize adds the alias to the joined columns so we want to clean that up
-		return _.map(pitches, (pitch: any) => {
+		return _.map(pitches, (pitch: GenericObject) => {
 			_.forOwn(COLUMN_MAP, (v, k) => {
 				// TODO - figure out pitcherId
 				if (v === k || k === 'pitcherId') return;

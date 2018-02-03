@@ -1,5 +1,5 @@
 let pitches;
-export default pitches = (sequelize: any, DataTypes: any) => {
+export default pitches = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes) => {
 	const pitches = sequelize.define('pitches', {
 		gameId: DataTypes.STRING,
 		pitcherId: DataTypes.TINYINT,
@@ -44,7 +44,7 @@ export default pitches = (sequelize: any, DataTypes: any) => {
 		hangtime: DataTypes.DOUBLE
 	});
 
-	pitches.associate = (models: any) => {
+	pitches.associate = (models: SequelizeModels) => {
 		pitches.belongsTo(models.pitchers, {
 			foreignKey: 'pitcherId'
 		});

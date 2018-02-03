@@ -16,7 +16,10 @@ interface GraphState {
 		credits?: Boolean;
 		tooltip?: Object;
 	};
+}
 
+interface SeriesData {
+	color?: string;
 }
 
 export class Graph extends React.Component<any, any> {
@@ -39,7 +42,7 @@ export class Graph extends React.Component<any, any> {
 	}
 
 	private colorSeries = (series: object[]) => {
-		return _.map(series, (s: any, idx: number) => {
+		return _.map(series, (s: SeriesData, idx: number) => {
 			if (s.color) return s;
 			s.color = this.getNextColor(idx);
 			return s;
