@@ -14,7 +14,8 @@ export class Db {
 				idle: 10000
 			},
 			operatorsAliases: Symbol(1),
-			storage: 'database.sqlite'
+			storage: 'database.sqlite',
+			logging: false
 		});
 	}
 }
