@@ -47,7 +47,6 @@ export class Graph extends React.Component<any, any> {
 	}
 
 	private colorSeries = (series: object[]) => {
-		debugger;
 		return _.map(series, (s: SeriesData, idx: number) => {
 			if (s.color || !_.isObject(s)) return s;
 			s.color = this.getNextColor(idx);
