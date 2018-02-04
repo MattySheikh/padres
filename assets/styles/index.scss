@@ -10,10 +10,16 @@
 }
 
 .graph-wrapper {
-	height: 400px;
-	width: 600px;
+	vertical-align: top;
 	margin: 15px;
 	display: inline-block;
+	height: $graph-height;
+	width: $graph-width;
+
+	.loader-container {
+		height: $graph-height;
+		width: $graph-width;
+	}
 
 	.loader {
 		top: 50%;

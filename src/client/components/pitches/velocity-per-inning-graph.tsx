@@ -1,9 +1,25 @@
 import * as React from 'react';
 import { GenericGraph } from '@components/graphs/generic-graph';
-import { formatAvg, PitchObject } from '@components/format-helper';
+import { formatAvg, PitchObject, getPitchTypesFilter } from '@components/format-helper';
 
 export class VelocityPerInningGraph extends React.Component {
-	route = `/api/pitches/speed?groupBy=pitcherId&groupBy=inning&pitchType=Fastball`;
+	route = `/api/pitches/speed`;
+	filters = {
+		groupBy: {
+			selectable: false,
+			multiple: true,
+			types: {
+				pitcherId: {
+					selected: true
+				},
+				inning: {
+					selected: true
+				}
+			}
+		},
+		pitchType: getPitchTypesFilter('Fastball')
+
+	}
 
 	public formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
@@ -38,7 +54,8 @@ export class VelocityPerInningGraph extends React.Component {
 			<GenericGraph {...{
 				route: this.route,
 				formatConfig: this.formatConfig.bind(this),
-				type: 'LineChart'
+				type: 'BarChart',
+				filters: this.filters
 			}} />
 		);
 	}

@@ -6,14 +6,15 @@ export class RepeatableBreaksGraph extends React.Component {
 	route = '/api/pitchers/repeatable-break';
 	filters = {
 		breakType: {
-			horizontal: {
-				label: 'Horizontal Break',
-				selectable: true,
-				selected: true
-			},
-			vertical: {
-				label: 'Vertical Break',
-				selectable: true
+			selectable: true,
+			types: {
+				horizontal: {
+					label: 'Horizontal Break',
+					selected: true
+				},
+				vertical: {
+					label: 'Vertical Break',
+				}
 			}
 		}
 	}

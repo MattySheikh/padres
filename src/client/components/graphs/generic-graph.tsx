@@ -58,10 +58,17 @@ export class GenericGraph extends React.Component {
 
 	private prepQuery = (filters: GenericObject) => {
 		const built: any = {};
-		_.forOwn(filters, (filterTypes, filterKey) => {
-			_.forOwn(filterTypes, (filter, key) => {
+		_.forOwn(filters, (options, filterKey) => {
+			_.forOwn(options.types, (filter, key) => {
+				if (options.multiple) {
+					built[filterKey] = built[filterKey] || [];
+				}
 				if (filter.selected) {
-					built[filterKey] = key;
+					if (options.multiple) {
+						built[filterKey].push(key);
+					} else {
+						built[filterKey] = key;
+					}
 				}
 			})
 		});
@@ -71,14 +78,13 @@ export class GenericGraph extends React.Component {
 
 	private getGraph = (): JSX.Element => {
 		if (this.state.isLoading) {
-			return(<div className="loader"></div>);
+			return(<div className="loader-container"><div className="loader"></div></div>);
 		}
 
 		let Component: any = GRAPHS[this.state.type];
 		return(
 			<div>
 				<Component {...{config: this.state.config }} />
-				{this.buildFilter(this.state.filters)}
 			</div>
 		);
 	}
@@ -93,10 +99,11 @@ export class GenericGraph extends React.Component {
 
 	private getSelectBoxes = (filters: object): JSX.Element[] => {
 		const boxes: JSX.Element[] = [];
-		_.forOwn(filters, (filterTypes, filterKey) => {
+		_.forOwn(filters, (options, filterKey) => {
+			if (!options.selectable) return;
 			boxes.push(
-				<select onChange={this.handleChange}>
-					{this.getFilterItems(filterTypes, filterKey)}
+				<select key={filterKey} name={filterKey} onChange={this.handleChange} multiple={options.multiple}>
+					{this.getFilterItems(options.types, filterKey)}
 				</select>
 			);
 		});
@@ -108,7 +115,7 @@ export class GenericGraph extends React.Component {
 		const items: JSX.Element[] = [];
 		_.forOwn(types, (filter, key) => {
 			items.push(
-				<option selected={filter.selected} value={`${key}:${parentKey}`}>
+				<option key={key} value={key}>
 					{filter.label}
 				</option>
 			);
@@ -118,15 +125,23 @@ export class GenericGraph extends React.Component {
 	}
 
 	private handleChange = (e: any) => {
-		let parentFilter;
-		let key;
-		[key, parentFilter] = e.target.value.split(':');
-		// Set the selected to false
+		let parentKey = e.target.name;
 		const filters: any = _.cloneDeep(this.state.filters);
-		_.mapValues(filters[parentFilter], (f: any) => f.selected = false);
-		filters[parentFilter][key].selected = true;
-		this.state.filters = filters;
-		this.build();
+
+
+		// Set everything to false then get the selected
+		const options = e.target.options;
+		const selected = [];
+		const length = options.length;
+		_.mapValues(filters[parentKey].types, (f: any) => f.selected = false);
+		for (let i = 0; i < length; i++) {
+			if (options[i].selected) {
+				selected.push(options[i].value);
+			}
+		}
+
+		_.map(selected, (s) => filters[parentKey].types[s].selected = true);
+		this.setState({ filters }, this.build);
 	}
 
 
@@ -134,6 +149,7 @@ export class GenericGraph extends React.Component {
 		return (
 			<div className="graph-wrapper">
 					{this.getGraph()}
+					{this.buildFilter(this.state.filters)}
 			</div>
 		);
 	}

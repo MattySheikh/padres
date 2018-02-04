@@ -31,3 +31,44 @@ export let formatAvg = (reducer: any[], data: PitchObject[], reducerKey: string,
 
 	return _.values(pitcherData);
 };
+
+export let getPitchTypesFilter = (defaultPitch: string) => {
+	return {
+		multiple: true,
+		selectable: true,
+		types: {
+			ChangeUp: {
+				label: 'ChangeUp',
+				selected: (defaultPitch === 'ChangeUp')
+			},
+			Curveball: {
+				label: 'Curveball',
+				selected: (defaultPitch === 'Curveball')
+			},
+			Cutter: {
+				label: 'Cutter',
+				selected: (defaultPitch === 'Cutter')
+			},
+			Fastball: {
+				label: 'Fastball',
+				selected: (defaultPitch === 'Fastball')
+			},
+			Other: {
+				label: 'Other',
+				selected: (defaultPitch === 'Other')
+			},
+			Sinker: {
+				label: 'Sinker',
+				selected: (defaultPitch === 'Sinker')
+			},
+			Slider: {
+				label: 'Slider',
+				selected: (defaultPitch === 'Slider')
+			},
+			Splitter: {
+				label: 'Splitter',
+				selected: (defaultPitch === 'Splitter')
+			}
+		}
+	};
+};
