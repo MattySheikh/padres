@@ -39,10 +39,12 @@ interface SequelizeOperators {
 
 // We use a lot of dynamic-keyed objects so just define it here and use it everywhere
 interface GenericObject {
-	[key: string]: string | symbol | object | number;
+	[key: string]: any;
 }
 
 declare module 'csvtojson';
 declare module 'sequelize';
 declare module 'react-highcharts';
-declare module 'highcharts-drilldown';
+declare module 'highcharts';
+declare module 'highcharts-more';
+declare module 'highcharts/modules/drilldown';

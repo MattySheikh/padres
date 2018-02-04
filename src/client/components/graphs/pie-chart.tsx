@@ -7,7 +7,7 @@ interface BarChartProps {
 	config: Object;
 }
 
-export class PieChart extends React.Component<any, any> {
+export class PieChart extends React.Component {
 	state = {
 		config: {
 			chart: {

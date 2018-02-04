@@ -3,6 +3,7 @@ import axios from 'axios';
 import { LineChart } from '@components/graphs/line-chart';
 import { BarChart } from '@components/graphs/bar-chart';
 import { PieChart } from '@components/graphs/pie-chart';
+import { BoxPlot } from '@components/graphs/box-plot';
 
 export interface State {
 	type: string;
@@ -15,7 +16,8 @@ export interface State {
 const GRAPHS: GenericObject = {
 	LineChart,
 	BarChart,
-	PieChart
+	PieChart,
+	BoxPlot
 };
 
 export class GenericGraph extends React.Component {

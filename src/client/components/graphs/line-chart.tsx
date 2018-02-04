@@ -7,7 +7,7 @@ interface LineChartProps {
 	config: Object;
 }
 
-export class LineChart extends React.Component<any, any> {
+export class LineChart extends React.Component {
 	state = {
 		config: {},
 		tooltip: {

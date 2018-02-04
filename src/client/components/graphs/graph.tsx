@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as Highcharts from 'react-highcharts';
-
-// Enable drilldown on pie charts
-import * as drilldown from 'highcharts-drilldown';
+// Enable drilldown and more on charts
+import * as drilldown from 'highcharts/modules/drilldown';
+import * as HighChartsMore from 'highcharts-more';
+HighChartsMore(Highcharts.Highcharts);
 drilldown(Highcharts.Highcharts);
 
 import '@styles/graphs.scss';
@@ -46,6 +47,7 @@ export class Graph extends React.Component<any, any> {
 	}
 
 	private colorSeries = (series: object[]) => {
+		debugger;
 		return _.map(series, (s: SeriesData, idx: number) => {
 			if (s.color || !_.isObject(s)) return s;
 			s.color = this.getNextColor(idx);

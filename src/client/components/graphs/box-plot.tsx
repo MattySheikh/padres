@@ -3,20 +3,20 @@ import { Graph } from '@components/graphs/graph';
 
 import '@styles/graphs.scss';
 
-interface BarChartProps {
+interface BoxPlotProps {
 	config: Object;
 }
 
-export class BarChart extends React.Component {
+export class BoxPlot extends React.Component {
 	state = {
 		config: {
 			chart: {
-				type: 'column'
+				type: 'boxplot'
 			}
 		}
 	};
 
-	constructor(props: BarChartProps) {
+	constructor(props: BoxPlotProps) {
 		super(props);
 		this.state.config = _.merge(this.state.config, props.config);
 	}
