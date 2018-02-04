@@ -32,13 +32,13 @@ export let formatAvg = (reducer: any[], data: PitchObject[], reducerKey: string,
 	return _.values(pitcherData);
 };
 
-export let getPitchTypesFilter = (defaultSelection: string[]) => {
+export let getPitchTypesFilter = (defaultSelection: string[], multiple: boolean = true) => {
 	return {
-		multiple: true,
+		multiple,
 		selectable: true,
 		types: {
 			ChangeUp: {
-				label: 'ChangeUp',
+				label: 'Change Up',
 				selected: _.includes(defaultSelection, 'ChangeUp')
 			},
 			Curveball: {

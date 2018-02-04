@@ -4,3 +4,4 @@
 * Get rid of `any`s
 * IE support?
 * Cache GETs?
+* Color boxplot

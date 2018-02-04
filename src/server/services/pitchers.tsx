@@ -24,9 +24,15 @@ export class Pitchers {
 
 	public getRepeatableBreak = async (queryOptions: GenericObject): Promise<object[]> => {
 		const type = queryOptions.breakType === 'vertical' ? 'vertBreak' : 'horzBreak';
+		const where: GenericObject = {};
+		if (queryOptions.pitchType) {
+			where.pitchType = queryOptions.pitchType
+		}
+
 		const config = {
 			...queryOptions,
 			model: this.pitchesModel,
+			where: where,
 			attributes: ['pitches.pitcherId', [type, 'break']],
 			include: [{
 				model: models.pitchers,
