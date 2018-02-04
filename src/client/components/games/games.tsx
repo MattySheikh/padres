@@ -5,6 +5,10 @@ import { HomeRunRatePerStadiumGraph } from '@components/games/home-run-rate-per-
 import { GameScoresGraph } from '@components/games/game-scores-graph';
 
 export class Games extends React.Component {
+	public componentDidMount() {
+		document.title = 'Games';
+	}
+
 	render() {
 		return(
 			<div className="graphs-container">

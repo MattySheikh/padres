@@ -5,6 +5,10 @@ import { PitchTypesThrownGraph } from '@components/pitchers/pitch-types-thrown-g
 import { RepeatableBreaksGraph } from '@components/pitchers/repeatable-breaks-graph';
 
 export class Pitchers extends React.Component {
+	public componentDidMount() {
+		document.title = 'Pitches';
+	}
+
 	render() {
 		return(
 			<div className="graphs-container">

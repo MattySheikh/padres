@@ -6,10 +6,6 @@ import { AvgPAPerInningGraph } from '@components/pitches/avg-pa-per-inning-graph
 
 
 export class Pitches extends React.Component {
-	constructor(props: object) {
-		super(props);
-	}
-
 	public componentDidMount() {
 		document.title = 'Pitches';
 	}
