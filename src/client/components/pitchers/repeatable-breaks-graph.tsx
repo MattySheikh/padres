@@ -3,14 +3,26 @@ import { GenericGraph } from '@components/graphs/generic-graph';
 import { PitchObject } from '@components/format-helper';
 
 export class RepeatableBreaksGraph extends React.Component {
-	route = '/api/pitchers/repeatable-break?type=horizontal';
+	route = '/api/pitchers/repeatable-break';
+	filters = {
+		breakType: {
+			horizontal: {
+				label: 'Horizontal Break',
+				selectable: true,
+				selected: true
+			},
+			vertical: {
+				label: 'Vertical Break',
+				selectable: true
+			}
+		}
+	}
 
 	public formatConfig = (data: PitchObject[]) => {
 		return {
 			chart: {
 				inverted: true
 			},
-
 			title: {
 				text: 'Pitcher Pitch Variance'
 			},
@@ -39,6 +51,7 @@ export class RepeatableBreaksGraph extends React.Component {
 			<GenericGraph {...{
 				route: this.route,
 				formatConfig: this.formatConfig.bind(this),
+				filters: this.filters,
 				type: 'BoxPlot'
 			}} />
 		);

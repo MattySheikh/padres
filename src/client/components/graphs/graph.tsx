@@ -67,7 +67,9 @@ export class Graph extends React.Component<any, any> {
 
 	render() {
 		return(
-			<Highcharts config={this.state.config} />
+			<div className="graph-container">
+				<Highcharts config={this.state.config} />
+			</div>
 		);
 
 	}

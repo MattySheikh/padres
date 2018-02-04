@@ -4,7 +4,7 @@ import { Db } from '@db/db';
 interface BreakRow {
 	pitcherName: string;
 	pitcherId: number;
-	horzBreak?: number;
+	break?: number;
 }
 
 interface BreakPoints {
@@ -27,7 +27,7 @@ export class Pitchers {
 		const config = {
 			...queryOptions,
 			model: this.pitchesModel,
-			attributes: ['pitches.pitcherId', type],
+			attributes: ['pitches.pitcherId', [type, 'break']],
 			include: [{
 				model: models.pitchers,
 				attributes: [['pitcher', 'pitcherName']]
@@ -43,7 +43,7 @@ export class Pitchers {
 				breaks: []
 			};
 
-			(res[row.pitcherId] as BreakPoints).breaks.push(row.horzBreak)
+			(res[row.pitcherId] as BreakPoints).breaks.push(row.break)
 			return res;
 		}, {});
 

@@ -16,9 +16,9 @@
 	display: inline-block;
 
 	.loader {
-		top: 150px;
-		position: absolute;
-		left: 300px;
+		top: 50%;
+		position: relative;
+		left: 50%;
 		margin: 0;
 	}
 }

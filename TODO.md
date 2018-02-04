@@ -1,4 +1,3 @@
 ## TODO
-* Fix time column in import script
-* Fix game_date column in import script
+* Try to invert graph when horz/vert break is selected
 * Get rid of `any`s
