@@ -10,7 +10,8 @@
 	background: $blue;
 	width: 1240px;
     margin: 0 auto;
-    border-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 .navigation-link {
 	color: $white;
