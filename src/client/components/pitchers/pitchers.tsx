@@ -1,4 +1,6 @@
 import * as React from 'react';
+import '@styles/index.scss';
+
 import { PitchTypesThrownGraph } from '@components/pitchers/pitch-types-thrown-graph';
 import { RepeatableBreaksGraph } from '@components/pitchers/repeatable-breaks-graph';
 

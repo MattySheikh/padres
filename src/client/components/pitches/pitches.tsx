@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '@styles/index.scss';
 
 import { VelocityPerInningGraph } from '@components/pitches/velocity-per-inning-graph';
 import { AvgPAPerInningGraph } from '@components/pitches/avg-pa-per-inning-graph';

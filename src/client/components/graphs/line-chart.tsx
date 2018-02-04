@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Graph } from '@components/graphs/graph';
 
-import '@styles/graphs.scss';
-
 interface LineChartProps {
 	config: Object;
 }
