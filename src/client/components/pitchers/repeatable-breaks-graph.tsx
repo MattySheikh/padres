@@ -26,7 +26,7 @@ export class RepeatableBreaksGraph extends React.Component {
 				inverted: false
 			},
 			title: {
-				text: 'Pitcher Pitch Variance'
+				text: 'Pitch Break Variance by Pitcher and Pitch'
 			},
 			legend: {
 				enabled: false

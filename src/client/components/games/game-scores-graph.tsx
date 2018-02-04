@@ -11,7 +11,7 @@ export class GameScoresGraph extends React.Component {
 		return {
 			chart: {
 			},
-			title: { text: 'Game Scores and FB%' },
+			title: { text: 'Game Scores and Fastball %' },
 			xAxis: {
 				title: {
 					enabled: true,

@@ -5,3 +5,4 @@
 * IE support?
 * Cache GETs?
 * Color boxplot
+* Add some notes for hiding legends values, etc..
