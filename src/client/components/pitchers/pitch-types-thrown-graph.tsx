@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { GenericGraph } from '@components/graphs/generic-graph';
-import { PitchObject, getPitchTypesFilter } from '@components/format-helper';
+import { PitchObject } from '@components/format-helper';
 
 export class PitchTypesThrownGraph extends React.Component {
 	route = '/api/pitches/type';

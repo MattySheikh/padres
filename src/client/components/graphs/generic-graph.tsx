@@ -106,7 +106,7 @@ export class GenericGraph extends React.Component {
 
 			boxes.push(
 				<select value={selected} key={filterKey} name={filterKey} onChange={this.handleChange} multiple={options.multiple}>
-					{this.getFilterItems(options.types, filterKey)}
+					{this.getFilterItems(options.types)}
 				</select>
 			);
 		});
@@ -114,7 +114,7 @@ export class GenericGraph extends React.Component {
 		return boxes;
 	}
 
-	private getFilterItems = (types: object, parentKey: string): JSX.Element[] => {
+	private getFilterItems = (types: object): JSX.Element[] => {
 		const items: JSX.Element[] = [];
 		_.forOwn(types, (filter, key) => {
 			items.push(
