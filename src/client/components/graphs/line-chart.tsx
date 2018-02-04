@@ -17,7 +17,6 @@ export class LineChart extends React.Component<any, any> {
 
 	constructor(props: LineChartProps) {
 		super(props);
-
 		this.state.config = _.merge(this.state.config, props.config);
 	}
 

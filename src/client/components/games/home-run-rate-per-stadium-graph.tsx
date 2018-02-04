@@ -1,43 +1,36 @@
 import * as React from 'react';
-import axios from 'axios';
-
-import { PieChart } from '@components/graphs/pie-chart';
-
-const API_ROUTE = '/api/games/hr-per-fly-ball';
-
-interface Props {
-	data: object;
-}
-
-interface State {
-	isLoading: Boolean;
-	config: Object;
-}
-
-interface GamesObject {
-	stadium: string;
-	hrCount: number;
-	flyBallCount: number;
-}
+import { GenericGraph } from '@components/graphs/generic-graph';
+import { GamesObject } from '@components/format-helper';
 
 export class HomeRunRatePerStadiumGraph extends React.Component {
-	constructor(props: Props) {
-		super(props);
-	}
+	route = '/api/games/hr-per-fly-ball?groupBy=stadium'
 
-	state: State = {
-		isLoading: true,
-		config: {}
-	}
-
-	public componentDidMount() {
-		axios.get(`${API_ROUTE}?groupBy=stadium`).then((response) => {
-			const config = this.formatConfig(response.data);
-			this.setState({
-				config,
-				isLoading: false
-			});
-		});
+	public formatConfig = (data: GamesObject[]) => {
+		const formatted = this.formatData(data);
+		return {
+			title: { text: 'Home Runs Per Fly Ball' },
+			subtitle: { text: 'Click the slices to view counts of HRs and fly balls' },
+			plotOptions: {
+				series: {
+					dataLabels: {
+						enabled: true,
+						format: '{point.name}: {point.y}'
+					}
+				}
+			},
+			tooltip: {
+				headerFormat: '',
+				pointFormat: '{point.name}: {point.y}'
+			},
+			series: [{
+				colorByPoint: true,
+				name: 'HR/FB',
+				data: formatted.series
+			}],
+			drilldown: {
+				series: formatted.drilldown
+			}
+		};
 	}
 
 	private formatData = (data: GamesObject[]) => {
@@ -66,49 +59,13 @@ export class HomeRunRatePerStadiumGraph extends React.Component {
 		};
 	}
 
-	private formatConfig = (data: GamesObject[]) => {
-		const formatted = this.formatData(data);
-		return {
-			title: { text: 'Home Runs Per Fly Ball' },
-			subtitle: { text: 'Click the slices to view counts of HRs and fly balls' },
-			plotOptions: {
-				series: {
-					dataLabels: {
-						enabled: true,
-						format: '{point.name}: {point.y}'
-					}
-				}
-			},
-			tooltip: {
-				headerFormat: '',
-				pointFormat: '{point.name}: {point.y}'
-			},
-			series: [{
-				colorByPoint: true,
-				name: 'HR/FB',
-				data: formatted.series
-			}],
-			drilldown: {
-				series: formatted.drilldown
-			}
-		};
-	}
-
-	private getView = () => {
-		if (this.state.isLoading) {
-			return(<div className="loader"></div>);
-		}
-
-		return(<PieChart config={this.state.config} />);
-	}
-
 	render() {
 		return(
-			<div className="graph-wrapper">
-				<div className="graph-container">
-					{this.getView()}
-				</div>
-			</div>
+			<GenericGraph {...{
+				route: this.route,
+				formatConfig: this.formatConfig.bind(this),
+				type: 'PieChart'
+			}} />
 		);
 	}
 }
