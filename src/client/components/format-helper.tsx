@@ -6,9 +6,13 @@ export interface PitchObject {
 }
 
 export interface GamesObject {
-	stadium: string;
-	hrCount: number;
-	flyBallCount: number;
+	stadium?: string;
+	hrCount?: number;
+	flyBallCount?: number;
+	pitcher?: string;
+	pitcherId?: number;
+	fastballPct?: number;
+	score?: number;
 }
 
 export let formatAvg = (reducer: any[], data: PitchObject[], reducerKey: string, dataKey: string) => {

@@ -48,3 +48,4 @@ declare module 'react-highcharts';
 declare module 'highcharts';
 declare module 'highcharts-more';
 declare module 'highcharts/modules/drilldown';
+declare module 'regression';

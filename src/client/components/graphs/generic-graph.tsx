@@ -4,6 +4,7 @@ import { LineChart } from '@components/graphs/line-chart';
 import { BarChart } from '@components/graphs/bar-chart';
 import { PieChart } from '@components/graphs/pie-chart';
 import { BoxPlot } from '@components/graphs/box-plot';
+import { ScatterPlot } from '@components/graphs/scatter-plot';
 
 export interface State {
 	type: string;
@@ -17,7 +18,8 @@ const GRAPHS: GenericObject = {
 	LineChart,
 	BarChart,
 	PieChart,
-	BoxPlot
+	BoxPlot,
+	ScatterPlot
 };
 
 export class GenericGraph extends React.Component {

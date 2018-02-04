@@ -39,6 +39,12 @@ export class ApiRouter {
 			ctx.response.status = 200;
 		});
 
+
+		this.router.get('/games/scores', async (ctx) => {
+			ctx.response.body = await this.games.getGameScores();
+			ctx.response.status = 200;
+		});
+
 		return this.router;
 	}
 }
