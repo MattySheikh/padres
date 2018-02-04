@@ -4,6 +4,9 @@
 	vertical-align: top;
 	margin: 15px;
 	display: inline-block;
+	&:not(:last-child) {
+		padding-right: 50px;
+	}
 
 	.loader-container {
 		height: $graph-height;
@@ -16,6 +19,21 @@
 		left: 50%;
 		margin: 0;
 	}
+
+
+
+	@media (max-width: 1309px) {
+		&:not(:last-child) {
+			padding-bottom: 30px;
+			border-bottom: 1px solid rgba($silver, 0.4);
+		}
+	}
+
+	@media (min-width: 1310px) {
+		&:not(:last-child) {
+			border-right: 1px solid rgba($silver, 0.4);
+		}
+	}
 }
 
 .graph-title {
@@ -26,7 +44,7 @@
 	select {
 		color: $blue;
 		background: $white;
-		border: 1px solid $blue;
+		border: 1px solid $silver;
 		border-radius: 0;
 		font-size: 15px;
 		width: 50%;
