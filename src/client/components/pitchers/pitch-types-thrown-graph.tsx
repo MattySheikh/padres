@@ -1,9 +1,23 @@
 import * as React from 'react';
 import { GenericGraph } from '@components/graphs/generic-graph';
-import { PitchObject } from '@components/format-helper';
+import { PitchObject, getPitchTypesFilter } from '@components/format-helper';
 
 export class PitchTypesThrownGraph extends React.Component {
-	route = '/api/pitches/type?groupBy=pitcherId&groupBy=pitchType';
+	route = '/api/pitches/type';
+	filters = {
+		groupBy: {
+			selectable: false,
+			multiple: true,
+			types: {
+				pitcherId: {
+					selected: true
+				},
+				pitchType: {
+					selected: true
+				}
+			}
+		}
+	};
 
 	public formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
@@ -59,7 +73,8 @@ export class PitchTypesThrownGraph extends React.Component {
 			<GenericGraph {...{
 				route: this.route,
 				formatConfig: this.formatConfig.bind(this),
-				type: 'BarChart'
+				type: 'BarChart',
+				filters: this.filters
 			}} />
 		);
 	}

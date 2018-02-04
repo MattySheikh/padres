@@ -17,9 +17,8 @@ export class VelocityPerInningGraph extends React.Component {
 				}
 			}
 		},
-		pitchType: getPitchTypesFilter('Fastball')
-
-	}
+		pitchType: getPitchTypesFilter(['Fastball'])
+	};
 
 	public formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
@@ -54,7 +53,7 @@ export class VelocityPerInningGraph extends React.Component {
 			<GenericGraph {...{
 				route: this.route,
 				formatConfig: this.formatConfig.bind(this),
-				type: 'BarChart',
+				type: 'LineChart',
 				filters: this.filters
 			}} />
 		);

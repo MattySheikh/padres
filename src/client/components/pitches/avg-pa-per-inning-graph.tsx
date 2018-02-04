@@ -3,7 +3,21 @@ import { GenericGraph } from '@components/graphs/generic-graph';
 import { formatAvg, PitchObject } from '@components/format-helper';
 
 export class AvgPAPerInningGraph extends React.Component {
-	route = '/api/pitches/avgPaCount?groupBy=pitcherId&groupBy=inning'
+	route = `/api/pitches/avgPaCount`;
+	filters = {
+		groupBy: {
+			selectable: false,
+			multiple: true,
+			types: {
+				pitcherId: {
+					selected: true
+				},
+				inning: {
+					selected: true
+				}
+			}
+		}
+	};
 
 	public formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
@@ -38,7 +52,8 @@ export class AvgPAPerInningGraph extends React.Component {
 			<GenericGraph {...{
 				route: this.route,
 				formatConfig: this.formatConfig.bind(this),
-				type: 'BarChart'
+				type: 'BarChart',
+				filters: this.filters
 			}} />
 		);
 	}

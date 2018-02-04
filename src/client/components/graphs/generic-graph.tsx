@@ -101,8 +101,9 @@ export class GenericGraph extends React.Component {
 		const boxes: JSX.Element[] = [];
 		_.forOwn(filters, (options, filterKey) => {
 			if (!options.selectable) return;
+			const selected = _.keys(_.pickBy(options.types, { selected: true } as any));
 			boxes.push(
-				<select key={filterKey} name={filterKey} onChange={this.handleChange} multiple={options.multiple}>
+				<select value={selected} key={filterKey} name={filterKey} onChange={this.handleChange} multiple={options.multiple}>
 					{this.getFilterItems(options.types, filterKey)}
 				</select>
 			);

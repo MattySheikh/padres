@@ -32,42 +32,42 @@ export let formatAvg = (reducer: any[], data: PitchObject[], reducerKey: string,
 	return _.values(pitcherData);
 };
 
-export let getPitchTypesFilter = (defaultPitch: string) => {
+export let getPitchTypesFilter = (defaultSelection: string[]) => {
 	return {
 		multiple: true,
 		selectable: true,
 		types: {
 			ChangeUp: {
 				label: 'ChangeUp',
-				selected: (defaultPitch === 'ChangeUp')
+				selected: _.includes(defaultSelection, 'ChangeUp')
 			},
 			Curveball: {
 				label: 'Curveball',
-				selected: (defaultPitch === 'Curveball')
+				selected: _.includes(defaultSelection, 'Curveball')
 			},
 			Cutter: {
 				label: 'Cutter',
-				selected: (defaultPitch === 'Cutter')
+				selected: _.includes(defaultSelection, 'Cutter')
 			},
 			Fastball: {
 				label: 'Fastball',
-				selected: (defaultPitch === 'Fastball')
+				selected: _.includes(defaultSelection, 'Fastball')
 			},
 			Other: {
 				label: 'Other',
-				selected: (defaultPitch === 'Other')
+				selected: _.includes(defaultSelection, 'Other')
 			},
 			Sinker: {
 				label: 'Sinker',
-				selected: (defaultPitch === 'Sinker')
+				selected: _.includes(defaultSelection, 'Sinker')
 			},
 			Slider: {
 				label: 'Slider',
-				selected: (defaultPitch === 'Slider')
+				selected: _.includes(defaultSelection, 'Slider')
 			},
 			Splitter: {
 				label: 'Splitter',
-				selected: (defaultPitch === 'Splitter')
+				selected: _.includes(defaultSelection, 'Splitter')
 			}
 		}
 	};
