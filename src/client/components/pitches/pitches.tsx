@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { VelocityPerInningGraph } from '@components/pitches/velocity-per-inning-graph';
+import { AvgPAPerInningGraph } from '@components/pitches/avg-pa-per-inning-graph';
 
 
 export class Pitches extends React.Component {
@@ -14,8 +15,9 @@ export class Pitches extends React.Component {
 
 	render() {
 		return(
-			<div>
+			<div className="graphs-container">
 				<VelocityPerInningGraph />
+				<AvgPAPerInningGraph />
 			</div>
 		);
 	}

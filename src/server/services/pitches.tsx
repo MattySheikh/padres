@@ -19,13 +19,15 @@ const COLUMN_MAP: GenericObject = {
 
 export class Pitches {
 	private pitchesModel: any; // sequelize messed up their Model type so it's impossible to import it
+	private Op: SequelizeOperators;
 
 	constructor() {
 		this.pitchesModel = models.pitches;
+		this.Op = Sequelize.Op;
 	}
 
 	public getBy = async (type: string, queryOptions: QueryOptions): Promise<object[]> => {
-		const func = `get${_.capitalize(type)}`;
+		const func = `get${_.upperFirst(type)}`;
 		return await (this as any)[func](queryOptions);
 	}
 
@@ -61,6 +63,36 @@ export class Pitches {
 
 		return this.fixColumns(pitches);
 	}
+
+	public getAvgPaCount = async (queryOptions: QueryOptions): Promise<object[]> => {
+		const avgPitchOfPa = [Sequelize.fn('AVG', Sequelize.col('pitchOfPa')), 'avgPitchOfPa'];
+		const pitches = await this.pitchesModel.findAll({
+			attributes: ['pitcherId', 'inning', 'pitchType', avgPitchOfPa],
+			group: this.mapGroupBy(queryOptions.groupBy),
+			where: {
+				[this.Op.or]: [
+					{
+						kOrBB: {
+							[this.Op.ne]: null
+						}
+					},
+					{
+						playResult: {
+							[this.Op.ne]: null
+						}
+					}
+				]
+			},
+			include: [{
+				model: models.pitchers,
+				attributes: [['pitcher', 'pitcherName']]
+			}],
+			raw: true
+		});
+
+		return this.fixColumns(pitches);
+	};
+
 
 	private fixColumns = (pitches: object[]): object[] => {
 		// Due to the join, Sequelize adds the alias to the joined columns so we want to clean that up

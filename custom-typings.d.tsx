@@ -7,6 +7,12 @@ interface Global {
  */
 interface SequelizeType {
 	define: (modelName: string, config: object) => SequelizeModels;
+	query: (query: string, queryType: object) => object[];
+	QueryTypes: SequelizeQueryTypes;
+}
+
+interface SequelizeQueryTypes {
+	SELECT: symbol;
 }
 
 interface SequelizeDataTypes {
@@ -26,6 +32,11 @@ interface SequelizeModels {
 	belongsTo?: (model: SequelizeModels | object, options: object) => void;
 }
 
+interface SequelizeOperators {
+	ne: symbol;
+	or: symbol;
+}
+
 // We use a lot of dynamic-keyed objects so just define it here and use it everywhere
 interface GenericObject {
 	[key: string]: string;
@@ -34,3 +45,4 @@ interface GenericObject {
 declare module 'csvtojson';
 declare module 'sequelize';
 declare module 'react-highcharts';
+declare module 'highcharts-drilldown';

@@ -1,5 +1,5 @@
 import { models } from '@db/models';
-import { Sequelize } from 'sequelize';
+import { Db } from '@db/db';
 
 interface QueryOptions {
 	groupBy?: string[],
@@ -21,27 +21,24 @@ const COLUMN_MAP: Columns = {
 	pitcherName: 'pitcher.pitcherName'
 }
 
-export class Pitches {
-	private pitchesModel: any; // sequelize messed up their Model type so it's impossible to import it
+export class Games {
+	private sql: SequelizeType;
 
 	constructor() {
-		this.pitchesModel = models.pitches;
+		this.sql = Db.getConnection();
 	}
 
-	public getSpeed = async (queryOptions: QueryOptions): Promise<object[]> => {
-		const avgSpeed = [Sequelize.fn('AVG', Sequelize.col('relSpeed')), 'avgSpeed'];
+	// Consider LineDrive
+	public getHrPerFlyBall = async (queryOptions: QueryOptions): Promise<object[]> => {
+		// It's a lot easier to hand-write this query as sequelize doesn't really handle CASE's in SUM's well
+		const query = `
+			SELECT \`games\`.\`stadium\`,
+			SUM(CASE WHEN \`pitches\`.\`playResult\` = 'HomeRun' THEN 1 ELSE 0 END) AS 'hrCount',
+			SUM(CASE WHEN \`pitches\`.\`hitType\` LIKE '%fly%' THEN 1 ELSE 0 END) AS 'flyBallCount'
+			FROM pitches LEFT JOIN games ON \`pitches\`.\`gameId\` = \`games\`.\`gameid\`
+			GROUP BY \`games\`.\`stadium\`;
+		`;
 
-		const pitches = await this.pitchesModel.findAll({
-			attributes: ['pitcherId', 'inning', 'pitchType', avgSpeed],
-			group: [],
-			where: {},
-			include: [{
-				model: models.pitchers,
-				attributes: [['pitcher', 'pitcherName']]
-			}],
-			raw: true
-		});
-
-		return pitches;
+		return await this.sql.query(query, { type: this.sql.QueryTypes.SELECT});
 	}
 }

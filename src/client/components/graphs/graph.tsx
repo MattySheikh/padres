@@ -1,6 +1,10 @@
 import * as React from 'react';
 import * as Highcharts from 'react-highcharts';
 
+// Enable drilldown on pie charts
+import * as drilldown from 'highcharts-drilldown';
+drilldown(Highcharts.Highcharts);
+
 import '@styles/graphs.scss';
 
 const PALETTE = [
@@ -20,6 +24,7 @@ interface GraphState {
 
 interface SeriesData {
 	color?: string;
+	data?: object[];
 }
 
 export class Graph extends React.Component<any, any> {
@@ -37,14 +42,18 @@ export class Graph extends React.Component<any, any> {
 		super(props);
 
 		this.state.config = _.merge(this.state.config, props.config);
-
 		this.state.config.series = this.colorSeries(props.config.series);
 	}
 
 	private colorSeries = (series: object[]) => {
 		return _.map(series, (s: SeriesData, idx: number) => {
-			if (s.color) return s;
+			if (s.color || !_.isObject(s)) return s;
 			s.color = this.getNextColor(idx);
+
+			if (!_.isEmpty(s.data)) {
+				s.data = this.colorSeries(s.data);
+			}
+
 			return s;
 		})
 	}

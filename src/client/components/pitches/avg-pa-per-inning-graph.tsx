@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { LineChart } from '@components/graphs/line-chart';
 
-const API_ROUTE = '/api/pitches/speed';
+const API_ROUTE = '/api/pitches/avgPaCount';
 
 interface Props {
 	data: object;
@@ -16,11 +16,11 @@ interface State {
 
 interface PitchObject {
 	pitcherId: number;
-	avgSpeed: number;
+	avgPitchOfPa: number;
 	pitcherName: string;
 }
 
-export class VelocityPerInningGraph extends React.Component {
+export class AvgPAPerInningGraph extends React.Component {
 	constructor(props: Props) {
 		super(props);
 	}
@@ -31,7 +31,7 @@ export class VelocityPerInningGraph extends React.Component {
 	}
 
 	public componentDidMount() {
-		axios.get(`${API_ROUTE}?groupBy=pitcherId&groupBy=inning&pitchType=Fastball`).then((response) => {
+		axios.get(`${API_ROUTE}?groupBy=pitcherId&groupBy=inning`).then((response) => {
 			const config = this.formatConfig(response.data);
 			this.setState({
 				config,
@@ -52,7 +52,7 @@ export class VelocityPerInningGraph extends React.Component {
 					data: []
 				}
 
-				pitcherData[data.pitcherId].data.push(_.round(data.avgSpeed, 2));
+				pitcherData[data.pitcherId].data.push(_.round(data.avgPitchOfPa, 2));
 			});
 		});
 
@@ -66,7 +66,7 @@ export class VelocityPerInningGraph extends React.Component {
 		const formatted = this.formatData(data);
 
 		return {
-			title: { text: 'Average Velocity By Inning' },
+			title: { text: 'Average Pitches Per Plate Appearance By Inning' },
 			xAxis: {
 				categories: formatted.xAxesValues,
 				title: {
@@ -75,7 +75,7 @@ export class VelocityPerInningGraph extends React.Component {
 			},
 			yAxis: {
 				title: {
-					text: 'Speed'
+					text: '# of Pitches'
 				}
 			},
 			series: formatted.data

@@ -21,7 +21,7 @@ interface PitchersState {
 export class Pitchers extends React.Component {
 	render() {
 		return(
-			<div>
+			<div className="graphs-container">
 				<PitchTypesThrownGraph />
 			</div>
 		);

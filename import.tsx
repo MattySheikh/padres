@@ -1,9 +1,9 @@
 import { Db } from '@db/db';
 import { models } from '@db/models';
 import * as csvtojson from 'csvtojson';
+import * as fs from 'fs';
 import * as _ from 'lodash';
 import * as path from 'path';
-import * as fs from 'fs';
 
 interface Model {
 	destroy: (options: object) => void;

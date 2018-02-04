@@ -3,21 +3,21 @@ import { Graph } from '@components/graphs/graph';
 
 import '@styles/graphs.scss';
 
-interface LineChartProps {
+interface BarChartProps {
 	config: Object;
 }
 
-export class LineChart extends React.Component<any, any> {
+export class PieChart extends React.Component<any, any> {
 	state = {
-		config: {},
-		tooltip: {
-			shared: true
+		config: {
+			chart: {
+				type: 'pie'
+			}
 		}
 	};
 
-	constructor(props: LineChartProps) {
+	constructor(props: BarChartProps) {
 		super(props);
-
 		this.state.config = _.merge(this.state.config, props.config);
 	}
 

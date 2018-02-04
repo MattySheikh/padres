@@ -4,9 +4,16 @@
 	font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 
+.graphs-container {
+	flex-wrap: wrap;
+	text-align: center;
+}
+
 .graph-wrapper {
 	height: 400px;
 	width: 600px;
+	margin: 15px;
+	display: inline-block;
 
 	.loader {
 		top: 150px;
