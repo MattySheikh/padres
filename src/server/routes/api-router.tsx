@@ -27,7 +27,7 @@ export class ApiRouter {
 		});
 
 		this.router.get('/games/hr-per-fly-ball', async (ctx) => {
-			ctx.response.body = await this.games.getHrPerFlyBall(ctx.request.query);
+			ctx.response.body = await this.games.getHrPerFlyBall();
 			ctx.response.status = 200;
 		});
 

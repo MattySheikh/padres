@@ -39,7 +39,7 @@ interface SequelizeOperators {
 
 // We use a lot of dynamic-keyed objects so just define it here and use it everywhere
 interface GenericObject {
-	[key: string]: string;
+	[key: string]: string | symbol | object;
 }
 
 declare module 'csvtojson';

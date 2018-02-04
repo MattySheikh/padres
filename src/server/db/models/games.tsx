@@ -1,5 +1,4 @@
 let games;
-import { DataTypes } from 'sequelize';
 
 export default games = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes) => {
 	const games = sequelize.define('games',

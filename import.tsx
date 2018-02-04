@@ -93,7 +93,11 @@ if (!fs.existsSync(file)) {
 
 			await model.upsert(newVals);
 		});
-	}).on('done', async (error: object) => {
+	}).on('done', async (error: Error) => {
+		if (Error) {
+			throw error;
+		}
+
 		const sql = Db.getConnection();
 		await sql.sync();
 	});

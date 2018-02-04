@@ -8,6 +8,8 @@
 		"jsx": "react",
 		"preserveConstEnums": true,
 		"baseUrl": "src",
+		"noUnusedLocals": true,
+		"noUnusedParameters": false,
 		"paths": {
 			"@client/*": ["client/*"],
 			"@components/*": ["client/components/*"],
