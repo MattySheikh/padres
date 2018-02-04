@@ -1,3 +1,19 @@
+@import 'variables';
+
+body {
+	margin: 0;
+}
+
 * {
 	font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+a {
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 15px;
+
+	&:visited, &:active {
+		color: $white;
+	}
 }

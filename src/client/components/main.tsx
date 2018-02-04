@@ -4,7 +4,7 @@
 
 import { PathObject, UrlRouter } from '@components/router/url-router';
 import * as React from 'react';
-import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 
 import '@styles/main.scss';
 
@@ -43,7 +43,7 @@ export class Main extends React.Component<{}> {
 	 */
 	private getTabs = (): React.ReactNode[] => {
 		return this.urlRouter.PATHS.map((val: PathObject) =>
-			<div className='navigation-link' key={val.url}><Link to={val.url}>{val.label}</Link></div>
+			<NavLink className='navigation-link' key={val.url} to={val.url}>{val.label}</NavLink>
 		);
 	}
 

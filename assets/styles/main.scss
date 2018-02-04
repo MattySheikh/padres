@@ -5,6 +5,25 @@
 	text-align: center;
 }
 
+
+.top-navigation {
+	background: $blue;
+	width: 1240px;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+.navigation-link {
+	color: $white;
+	display: inline-block;
+	font-size: 15px;
+	padding: 16px;
+	border-top: 3px solid $blue;
+
+	&.active {
+		border-top: 3px solid $silver;
+	}
+}
+
 .loader,
 .loader:after {
 	border-radius: 50%;

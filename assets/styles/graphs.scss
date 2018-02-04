@@ -23,3 +23,35 @@
 .graph-title {
 	text-align: center;
 }
+
+.filter-container {
+	select {
+		color: $blue;
+		background: $white;
+		border: 1px solid $blue;
+		border-radius: 0;
+		font-size: 15px;
+		width: 50%;
+		padding: 5px 35px 5px 5px;
+		height: 34px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		outline: none;
+
+		&[multiple] {
+			height: 100px;
+		}
+
+		&:not([multiple]) {
+			background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+				linear-gradient(135deg, gray 50%, transparent 50%),
+				linear-gradient(to right, #ccc, #ccc);
+			background-position: calc(100% - 20px) calc(1em + 0px),
+				calc(100% - 15px) calc(1em + 0px),
+				calc(100% - 2.5em) 0.5em;
+			background-size: 5px 5px, 5px 5px, 0px 2.5em;
+			background-repeat: no-repeat;
+		}
+	}
+}
