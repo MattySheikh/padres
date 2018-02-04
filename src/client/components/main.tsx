@@ -4,7 +4,7 @@
 
 import { PathObject, UrlRouter } from '@components/router/url-router';
 import * as React from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
 
 import '@styles/main.scss';
 
@@ -26,7 +26,10 @@ export class Main extends React.Component<{}> {
 						</div>
 					</div>
 					<div>
-						{this.getRoutes()}
+						<Switch>
+							{this.getRoutes()}
+							<Redirect from='/' to={this.urlRouter.getDefaultRoute()} />
+						</Switch>
 					</div>
 				</div>
 			</BrowserRouter>

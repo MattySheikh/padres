@@ -35,4 +35,8 @@ export class UrlRouter {
 			label: 'Pitchers'
 		}
 	]
+
+	public getDefaultRoute = () => {
+		return '/pitches';
+	}
 }
