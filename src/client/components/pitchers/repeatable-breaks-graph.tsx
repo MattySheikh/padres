@@ -36,7 +36,8 @@ export class RepeatableBreaksGraph extends React.Component {
 				title: { text: 'Pitcher' }
 			},
 			series: [{
-				data: this.formatData(data)
+				data: this.formatData(data),
+				color: '#061540'
 			}]
 		};
 	};
