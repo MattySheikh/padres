@@ -1,3 +1,7 @@
+/**
+ * Handles the component rendered at /games
+ */
+
 import * as React from 'react';
 import '@styles/index.scss';
 

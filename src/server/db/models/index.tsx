@@ -1,3 +1,7 @@
+/**
+ * This file handles the importing of all of our models in this directory and throws them into memory
+ */
+
 import * as fs from 'fs';
 import * as path from 'path';
 import { Db } from '@db/db';

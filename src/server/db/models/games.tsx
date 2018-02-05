@@ -1,3 +1,7 @@
+/**
+ * Handles our `games` table
+ */
+
 let games;
 
 export default games = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes) => {
@@ -12,6 +16,7 @@ export default games = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes)
 		}
 	);
 
+	// A game has many pitches so we set up that association here
 	games.associate = (models: SequelizeModels) => {
 		games.hasMany(models.pitches, {
 			foreignKey: 'gameId',

@@ -1,3 +1,7 @@
+/**
+ * Handles the component rendered at /pitchers
+ */
+
 import * as React from 'react';
 import '@styles/index.scss';
 

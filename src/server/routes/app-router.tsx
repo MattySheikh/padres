@@ -25,6 +25,8 @@ export class AppRouter {
 	/**
 	 * Renders any front-end route and passes the state to the front-end. Also handles serving of
 	 * static files and passes anything behind `/api` to ApiRouter
+	 *
+	 * @returns {Router}
 	 */
 	public init = (): Router => {
 

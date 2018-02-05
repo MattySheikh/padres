@@ -15,6 +15,17 @@ export interface GamesObject {
 	score?: number;
 }
 
+/**
+ * We calculate a lot of averages where just they key at the very bottom of the tree is different so
+ * this takes that logic and generalizes it.
+ *
+ * @param {any[]} reducer - what we will use to iterate over the tree
+ * @param {PitchObject[]} data - our data points
+ * @param {string} reducerKey - the key that helps us identify where in the tree the relevant data is
+ * @param {string} dataKey - tells us where to grab the data from at the bottom level
+ *
+ * @returns {object[]}
+ */
 export let formatAvg = (reducer: any[], data: PitchObject[], reducerKey: string, dataKey: string) => {
 	const pitcherData: any = {};
 	_.forEach(reducer, (val) => {
@@ -32,6 +43,14 @@ export let formatAvg = (reducer: any[], data: PitchObject[], reducerKey: string,
 	return _.values(pitcherData);
 };
 
+/**
+ * Creates a generic Pitch Types filter
+ *
+ * @param {string[]} defaultSelection - which pitches to select by default
+ * @param {boolean} multiple - whether or not multiple pitches can be selected
+ *
+ * @returns {object}
+ */
 export let getPitchTypesFilter = (defaultSelection: string[], multiple: boolean = true) => {
 	return {
 		multiple,

@@ -1,3 +1,7 @@
+/**
+ * Calculates the games scores split by pitcher and game on a scatterplot
+ */
+
 import * as React from 'react';
 import { GenericGraph } from '@components/graphs/generic-graph';
 import { GamesObject } from '@components/format-helper';
@@ -6,6 +10,13 @@ import * as regression from 'regression';
 export class GameScoresGraph extends React.Component {
 	route = '/api/games/scores'
 
+	/**
+	 * Creates the config for consumption by the scatterplot
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object} - https://www.highcharts.com/demo/scatter
+	 */
 	public formatConfig = (data: GamesObject[]) => {
 		const formattedData = this.formatData(data);
 		return {
@@ -39,14 +50,13 @@ export class GameScoresGraph extends React.Component {
 		};
 	}
 
-	private calculateRegression = (data: object[]) => {
-		const points = _.flatten(_.map(data, 'data'));
-		const result = regression.linear(points);
-
-		// Sort it because Highcharts requires it
-		return result.points.sort();
-	}
-
+	/**
+	 * Formats the data for consumption by the scatterplot
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object}[] - of data points
+	 */
 	private formatData = (data: GamesObject[]) => {
 		const pitchersToGames: any = {};
 		_.map(data, (d) => {
@@ -59,6 +69,19 @@ export class GameScoresGraph extends React.Component {
 		});
 
 		return _.values(pitchersToGames);
+	}
+
+	/**
+	 * Calculates point of regression line
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 */
+	private calculateRegression = (data: GamesObject[]) => {
+		const points = _.flatten(_.map(data, 'data'));
+		const result = regression.linear(points);
+
+		// Sort it because Highcharts requires it
+		return result.points.sort();
 	}
 
 	render() {

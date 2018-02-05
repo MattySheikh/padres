@@ -1,3 +1,7 @@
+/**
+ * Handles our `pitchers` table
+ */
+
 let pitches;
 export default pitches = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes) => {
 	const pitches = sequelize.define('pitches', {
@@ -44,6 +48,7 @@ export default pitches = (sequelize: SequelizeType, DataTypes: SequelizeDataType
 		hangtime: DataTypes.DOUBLE
 	});
 
+	// There are pitches in a game and belong to a pitcher, set up that association here
 	pitches.associate = (models: SequelizeModels) => {
 		pitches.belongsTo(models.pitchers, {
 			foreignKey: 'pitcherId'

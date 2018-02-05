@@ -1,10 +1,32 @@
+/**
+ * Calculates the Home Run per Fly Ball ratio split by stadium
+ */
+
 import * as React from 'react';
 import { GenericGraph } from '@components/graphs/generic-graph';
 import { GamesObject } from '@components/format-helper';
 
 export class HomeRunRatePerStadiumGraph extends React.Component {
-	route = '/api/games/hr-per-fly-ball?groupBy=stadium'
+	route = '/api/games/hr-per-fly-ball'
+	filters = {
+		groupBy: {
+			selectable: false,
+			multiple: false,
+			types: {
+				stadium: {
+					selected: true
+				}
+			}
+		}
+	};
 
+	/**
+	 * Creates the config for consumption by the scatterplot
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object} - https://www.highcharts.com/demo/pie-drilldown
+	 */
 	public formatConfig = (data: GamesObject[]) => {
 		const formatted = this.formatData(data);
 		return {
@@ -33,6 +55,13 @@ export class HomeRunRatePerStadiumGraph extends React.Component {
 		};
 	}
 
+	/**
+	 * Formats the data for consumption by the scatterplot
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object} - the series and drilldown data
+	 */
 	private formatData = (data: GamesObject[]) => {
 		const drilldown: object[] = [];
 		const series: object[] = [];
@@ -64,7 +93,8 @@ export class HomeRunRatePerStadiumGraph extends React.Component {
 			<GenericGraph {...{
 				route: this.route,
 				formatConfig: this.formatConfig.bind(this),
-				type: 'PieChart'
+				type: 'PieChart',
+				filters: this.filters
 			}} />
 		);
 	}

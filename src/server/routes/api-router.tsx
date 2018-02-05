@@ -21,7 +21,12 @@ export class ApiRouter {
 	}
 
 	/**
-	 * TODO - split out these into middleware files
+	 * Sets up all of our routes
+	 *
+	 * NOTE - I would split these into separate files once this function became unwieldy. Also could
+	 * probably clean up the /games/ and /pitchers/ APIs to be more generic
+	 *
+	 * @returns {Router}
 	 */
 	public init = (): Router => {
 		this.router.get('/pitches/:type', async (ctx) => {

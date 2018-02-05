@@ -1,3 +1,7 @@
+/**
+ * Handles the graph to be rendered in addition to applying filters and sending the request for data
+ */
+
 import * as React from 'react';
 import axios from 'axios';
 import * as queryString from 'query-string';
@@ -44,6 +48,11 @@ export class GenericGraph extends React.Component {
 	}
 
 
+	/**
+	 * Fetches the data and applies the initial state
+	 *
+	 * @returns {undefined}
+	 */
 	public build = () => {
 		const route = `${this.state.route}${this.prepQuery(this.state.filters)}`;
 		this.setState({ isLoading: true})
@@ -56,6 +65,13 @@ export class GenericGraph extends React.Component {
 		});
 	}
 
+	/**
+	 * Prepares the request query by applying filters to the query string
+	 *
+	 * @param {GenericObject} filters
+	 *
+	 * @returns {string} - the query search params to be attached to the route
+	 */
 	private prepQuery = (filters: GenericObject) => {
 		const built: any = {};
 		_.forOwn(filters, (options, filterKey) => {
@@ -76,6 +92,11 @@ export class GenericGraph extends React.Component {
 		return `?${queryString.stringify(built)}`;
 	}
 
+	/**
+	 * Looks up which graph to use based on type and renders either that or a loading circle
+	 *
+	 * @returns {JSX.Element}
+	 */
 	private getGraph = (): JSX.Element => {
 		if (this.state.isLoading) {
 			return(<div className="loader-container"><div className="loader"></div></div>);
@@ -89,6 +110,13 @@ export class GenericGraph extends React.Component {
 		);
 	}
 
+	/**
+	 * Builds the filters container
+	 *
+	 * @param {object} filters
+	 *
+	 * @returns {JSX.Element}
+	 */
 	private buildFilter = (filters: object): JSX.Element => {
 		return(
 			<div className="filter-container">
@@ -97,6 +125,13 @@ export class GenericGraph extends React.Component {
 		);
 	};
 
+	/**
+	 * Creates actual select objects for a filter dropdown/multiselect
+	 *
+	 * @param {object} filters
+	 *
+	 * @returns {JSX.Element[]}
+	 */
 	private getSelectBoxes = (filters: object): JSX.Element[] => {
 		const boxes: JSX.Element[] = [];
 		_.forOwn(filters, (options, filterKey) => {
@@ -116,6 +151,13 @@ export class GenericGraph extends React.Component {
 		return boxes;
 	}
 
+	/**
+	 * Creates options for a filter dropdown/multiselect
+	 *
+	 * @param {object} types - different options of a filter
+	 *
+	 * @returns {JSX.Element[]}
+	 */
 	private getFilterItems = (types: object): JSX.Element[] => {
 		const items: JSX.Element[] = [];
 		_.forOwn(types, (filter, key) => {
@@ -129,6 +171,13 @@ export class GenericGraph extends React.Component {
 		return items;
 	}
 
+	/**
+	 * Handles a filter change and triggers a rebuild of the graph after setting state
+	 *
+	 * @param {object} filters
+	 *
+	 * @returns {JSX.Element[]}
+	 */
 	private handleChange = (e: any) => {
 		let parentKey = e.target.name;
 		const filters: any = _.cloneDeep(this.state.filters);

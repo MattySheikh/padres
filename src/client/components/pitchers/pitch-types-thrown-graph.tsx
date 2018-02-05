@@ -1,3 +1,7 @@
+/**
+ * Calculates the count of pitch types thrown by a pitcher
+ */
+
 import * as React from 'react';
 import { GenericGraph } from '@components/graphs/generic-graph';
 import { PitchObject } from '@components/format-helper';
@@ -19,6 +23,13 @@ export class PitchTypesThrownGraph extends React.Component {
 		}
 	};
 
+	/**
+	 * Creates the config for consumption by the bar chart
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object} - https://www.highcharts.com/demo/bar-basic
+	 */
 	public formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
 		return {
@@ -38,6 +49,13 @@ export class PitchTypesThrownGraph extends React.Component {
 		};
 	}
 
+	/**
+	 * Formats the data for consumption by the bar chart
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object} - the series and drilldown data
+	 */
 	private formatData = (data: PitchObject[]) => {
 		const pitcherData: any = {};
 		const pitchTypes = _.union(_.map(data, 'pitchType'));

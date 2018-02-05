@@ -1,3 +1,7 @@
+/**
+ * Handles generic PieChart creation
+ */
+
 import * as React from 'react';
 import { Graph } from '@components/graphs/graph';
 

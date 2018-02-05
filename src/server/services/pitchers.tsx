@@ -1,3 +1,7 @@
+/**
+ * Handles all functionality relevant to a game
+ */
+
 import { models } from '@db/models';
 import { Db } from '@db/db';
 
@@ -22,6 +26,14 @@ export class Pitchers {
 		this.db = new Db();
 	}
 
+	/**
+	 * Calculates the amount of horizontal/vertical break by a pitcher split by pitch. This graph determines
+	 * which pitchers have the most 'repeatable' pitches and can control the ball based on the type of pitch.
+	 *
+	 * @param {GenericObject} queryOptions
+	 *
+	 * @returns {Promise<object[]>} - calculated quadrants and mix/man/median for a pitcher
+	 */
 	public getRepeatableBreak = async (queryOptions: GenericObject): Promise<object[]> => {
 		const type = queryOptions.breakType === 'vertical' ? 'vertBreak' : 'horzBreak';
 		const where: GenericObject = {};
@@ -68,6 +80,13 @@ export class Pitchers {
 		});
 	};
 
+	/**
+	 * Finds the median of an array of values
+	 *
+	 * @param {number[]}
+	 *
+	 * @returns {number}
+	 */
 	private calculateMedian = (arr: number[]): number => {
 		const half = Math.floor(arr.length/2);
 

@@ -1,6 +1,9 @@
+/**
+ * Handles all functionality relevant to a game
+ */
+
 import { Db } from '@db/db';
 
-// Taken from https://www.fangraphs.com/library/pitching/game-score/ and using gs2 with the NL constant
 const GAME_SCORE_CONSTANT = 36;
 
 interface ScoreRow {
@@ -23,13 +26,18 @@ export class Games {
 		this.db = new Db();
 	}
 
-	// Consider LineDrive
+	/**
+	 * Calculates how many home runs per fly ball is hit.
+	 * NOTE - this does not include 'Line Drives' in the calculation
+	 *
+	 * @returns {Promise<object[]>} - of rows where a FlyBall was hit and whether or not it was a HomeRun
+	 */
 	public getHrPerFlyBall = async (): Promise<object[]> => {
 		// It's a lot easier to hand-write this query as sequelize doesn't really handle CASE's in SUM's well
 		const query = `
 			SELECT \`games\`.\`stadium\`,
 			SUM(\`pitches\`.\`playResult\` = 'HomeRun') AS 'hrCount',
-			SUM(\`pitches\`.\`hitType\` LIKE '%fly%') AS 'flyBallCount'
+			SUM(\`pitches\`.\`hitType\` = 'FlyBall') AS 'flyBallCount'
 			FROM pitches LEFT JOIN games ON \`pitches\`.\`gameId\` = \`games\`.\`gameid\`
 			GROUP BY \`games\`.\`stadium\`;
 		`;
@@ -37,6 +45,12 @@ export class Games {
 		return await this.db.rawSelect(query);
 	}
 
+	/**
+	 * Calculates all the game scores for the pitchers
+	 * Taken from https://www.fangraphs.com/library/pitching/game-score/ and using gs2 with the NL constant
+	 *
+	 * @returns {Promise<object[]>} - of game scores for pitchers
+	 */
 	public getGameScores = async (): Promise<object[]> => {
 		const query = `
 			SELECT

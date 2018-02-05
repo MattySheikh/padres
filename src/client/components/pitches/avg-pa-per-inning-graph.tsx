@@ -1,3 +1,8 @@
+/**
+ * Calculates how many pitches per plate appearance it takes for a pitcher to get through a batter
+ * broken down by inning
+ */
+
 import * as React from 'react';
 import { GenericGraph } from '@components/graphs/generic-graph';
 import { formatAvg, PitchObject } from '@components/format-helper';
@@ -19,6 +24,13 @@ export class AvgPAPerInningGraph extends React.Component {
 		}
 	};
 
+	/**
+	 * Creates the config for consumption by the bar chart
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object} - https://www.highcharts.com/demo/bar-basic
+	 */
 	public formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
 		return {
@@ -38,6 +50,13 @@ export class AvgPAPerInningGraph extends React.Component {
 		};
 	}
 
+	/**
+	 * Formats the data for consumption by the bar chart
+	 *
+	 * @param {GamesObject} data - an array of datapoints
+	 *
+	 * @returns {object} - the series and drilldown data
+	 */
 	private formatData = (data: PitchObject[]) => {
 		const innings = _.range(1, 10);
 		const pitcherData = formatAvg(innings, data, 'inning', 'avgPitchOfPa');

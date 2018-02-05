@@ -1,3 +1,7 @@
+/**
+ * Handles our `pitchers` table
+ */
+
 let pitchers;
 export default pitchers = (sequelize: SequelizeType, DataTypes: SequelizeDataTypes) => {
 	const pitchers = sequelize.define('pitchers',
@@ -11,6 +15,7 @@ export default pitchers = (sequelize: SequelizeType, DataTypes: SequelizeDataTyp
 		}
 	);
 
+	// A pitcher has many pitches so we set up that association here
 	pitchers.associate = (models: SequelizeModels) => {
 		pitchers.hasMany(models.pitches, {
 			foreignKey: 'pitcherId',
