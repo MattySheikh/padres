@@ -1,3 +1,4 @@
+### Setup
 * [Install brew](https://brew.sh/)
 * Install sqlite
 	* `brew install sqlite`
@@ -9,10 +10,8 @@
 	* `nvm use`
 * Install yarn
 	* `brew install -g yarn`
-* Install dependencies by running `yarn` from the repo root
-* Run `yarn` to install dependencies
+* Run `yarn` from the repo root to install dependencies
 * Run `yarn watch` and you're all set! The server will restart automatically on file changes
 
 * To import data
-	* Drop `pitches.csv` into the root of this repo
 	* Run `yarn run import /path/to/file.csv` to import the csv and split it into tables
