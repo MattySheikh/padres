@@ -66,15 +66,14 @@ export class Pitchers {
 		}, {});
 
 		return _.map(pitcherHorzBreaks, (p: BreakPoints) => {
-			p.breaks.sort();
-			const length = p.breaks.length;
+			const sorted = _.sortBy(p.breaks);
 			return {
-				lowerQuadrant: p.breaks[Math.floor(length * .25) - 1],
-				upperQuadrant: p.breaks[Math.floor(length * .75) - 1],
-				min: Math.min.apply(null, p.breaks),
-				max: Math.max.apply(null, p.breaks),
-				pitchCount: p.breaks.length,
-				median: this.calculateMedian(p.breaks),
+				lowerQuadrant: sorted[Math.floor(sorted.length * .25) - 1],
+				upperQuadrant: sorted[Math.floor(sorted.length * .75) - 1],
+				min: Math.min.apply(null, sorted),
+				max: Math.max.apply(null, sorted),
+				pitchCount: sorted.length,
+				median: this.calculateMedian(sorted),
 				pitcherName: p.pitcherName,
 				pitcherId: p.pitcherId
 			};
