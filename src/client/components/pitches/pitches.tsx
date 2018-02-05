@@ -5,9 +5,8 @@
 import * as React from 'react';
 import '@styles/index.scss';
 
+import { RepeatableBreaksGraph } from '@components/pitchers/repeatable-breaks-graph';
 import { VelocityPerInningGraph } from '@components/pitches/velocity-per-inning-graph';
-import { AvgPAPerInningGraph } from '@components/pitches/avg-pa-per-inning-graph';
-
 
 export class Pitches extends React.Component {
 	public componentDidMount() {
@@ -17,8 +16,8 @@ export class Pitches extends React.Component {
 	render() {
 		return(
 			<div className="graphs-container">
+				<RepeatableBreaksGraph />
 				<VelocityPerInningGraph />
-				<AvgPAPerInningGraph />
 			</div>
 		);
 	}
