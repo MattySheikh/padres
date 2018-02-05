@@ -32,6 +32,15 @@ export class GameScoresGraph extends React.Component {
 			yAxis: {
 				title: { text: 'Fangraphs Game Scores' }
 			},
+			plotOptions: {
+				scatter: {
+					tooltip: {
+						headerFormat: '<b>{series.name}</b><br>',
+						pointFormat: 'Fastball Rate: {point.x}% <br/> Game Score: {point.y}'
+					}
+				}
+
+			},
 			series: [
 				...formattedData,
 				{
