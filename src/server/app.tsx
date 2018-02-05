@@ -11,6 +11,7 @@ import { AppRouter } from '@routes/app-router';
 import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import * as views from 'koa-views';
+import * as winston from 'winston';
 
 export class App {
 	public instance: Koa;
@@ -52,7 +53,7 @@ export class App {
 				await next();
 			} catch (error) {
 				ctx.status = error.statusCode || error.status || 500;
-				console.error('APP-ERROR', error);
+				winston.error('APP-ERROR', error);
 			}
 		});
 	}
@@ -72,7 +73,7 @@ export class App {
 	 */
 	private setupFallbackRoutes = (): void => {
 		this.instance.use(async (ctx: Koa.Context) => {
-			console.error('INVALID-ROUTE', `No ${ctx.req.method} routes exist for ${ctx.originalUrl}`);
+			winston.error('INVALID-ROUTE', `No ${ctx.req.method} routes exist for ${ctx.originalUrl}`);
 		});
 	}
 }

@@ -2,6 +2,7 @@
  * Handles server setup and gets options from `App`. This file shouldn't do anything but start a server
  */
 
+import * as winston from 'winston';
 import { App } from './app';
 
 const PORT: number = 1919;
@@ -15,7 +16,7 @@ export class Server {
 
 	public start() {
 		this.app.start();
-		this.app.instance.listen(PORT, () => console.info(`Server running on port ${PORT}`));
+		this.app.instance.listen(PORT, () => winston.info(`Server running on port ${PORT}`));
 	}
 }
 

@@ -5,6 +5,7 @@
   "author": "Matthew Al-Sheikh <matthewalsheikh@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/winston": "^2.3.7",
     "axios": "^0.17.1",
     "highcharts": "^6.0.5",
     "highcharts-more": "^0.1.7",
@@ -21,7 +22,8 @@
     "react-router-dom": "^4.2.2",
     "regression": "^2.0.1",
     "sequelize": "^4.32.3",
-    "sqlite3": "^3.1.13"
+    "sqlite3": "^3.1.13",
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.43",
