@@ -1,6 +1,9 @@
 @import 'variables';
 
 .graph-wrapper {
+	// Hardcode width/height or else the window will resize when the graph re-renders
+    width: $graph-width;
+    min-height: $graph-height;
 	vertical-align: top;
 	margin: 15px;
 	display: inline-block;
@@ -20,9 +23,12 @@
 		margin: 0;
 	}
 
-	@media (max-width: 1309px) {
-		&:not(:last-child) {
+	@media (max-width: 1280px) {
+		& {
 			padding-bottom: 30px;
+		}
+
+		&:not(:last-child) {
 			border-bottom: 1px solid rgba($silver, 0.4);
 		}
 	}

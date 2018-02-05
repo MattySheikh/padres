@@ -36,10 +36,6 @@ interface SeriesData {
 export class Graph extends React.Component<any, any> {
 	public state: GraphState = {
 		config: {
-			chart: {
-				height: 400,
-				width: 600
-			},
 			series: [],
 			credits: false,
 			tooltip: {
