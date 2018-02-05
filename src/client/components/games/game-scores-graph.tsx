@@ -81,7 +81,7 @@ export class GameScoresGraph extends React.Component {
 		const result = regression.linear(points);
 
 		// Sort it because Highcharts requires it
-		return result.points.sort();
+		return _.sortBy(result.points);
 	}
 
 	render() {
