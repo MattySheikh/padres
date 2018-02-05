@@ -23,7 +23,7 @@ export class BoxPlot extends React.Component {
 		this.state.config = _.merge(this.state.config, props.config);
 	}
 
-	componentWillReceiveProps(newState: any) {
+	componentWillReceiveProps(newState: BoxPlotProps) {
 		this.setState(_.merge(this.state.config, newState.config));
 	}
 

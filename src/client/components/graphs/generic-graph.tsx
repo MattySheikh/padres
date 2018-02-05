@@ -73,7 +73,7 @@ export class GenericGraph extends React.Component {
 	 * @returns {string} - the query search params to be attached to the route
 	 */
 	private prepQuery = (filters: GenericObject) => {
-		const built: any = {};
+		const built: GenericObject = {};
 		_.forOwn(filters, (options, filterKey) => {
 			_.forOwn(options.types, (filter, key) => {
 				if (options.multiple) {
@@ -102,7 +102,7 @@ export class GenericGraph extends React.Component {
 			return(<div className="loader-container"><div className="loader"></div></div>);
 		}
 
-		let Component: any = GRAPHS[this.state.type];
+		let Component = GRAPHS[this.state.type];
 		return(
 			<div>
 				<Component {...{config: this.state.config }} />
@@ -136,7 +136,7 @@ export class GenericGraph extends React.Component {
 		const boxes: JSX.Element[] = [];
 		_.forOwn(filters, (options, filterKey) => {
 			if (!options.selectable) return;
-			let selected: string | string[] = _.keys(_.pickBy(options.types, { selected: true } as any));
+			let selected: string | string[] = _.keys(_.pickBy(options.types, { selected: true } as GenericObject));
 			selected = options.multiple ? selected : selected[0];
 
 			boxes.push(
@@ -174,20 +174,21 @@ export class GenericGraph extends React.Component {
 	/**
 	 * Handles a filter change and triggers a rebuild of the graph after setting state
 	 *
-	 * @param {object} filters
+	 * @param {object} e - this is an event type but TypeScript has beef when you try to modify the
+	 * target of an event so we're going to use a generic object for now
 	 *
 	 * @returns {JSX.Element[]}
 	 */
-	private handleChange = (e: any) => {
+	private handleChange = (e: GenericObject) => {
 		let parentKey = e.target.name;
-		const filters: any = _.cloneDeep(this.state.filters);
+		const filters: GenericObject = _.cloneDeep(this.state.filters);
 
 
 		// Set everything to false then get the selected
 		const options = e.target.options;
 		const selected = [];
 		const length = options.length;
-		_.mapValues(filters[parentKey].types, (f: any) => f.selected = false);
+		_.mapValues(filters[parentKey].types, (f: { selected: boolean }) => f.selected = false);
 		for (let i = 0; i < length; i++) {
 			if (options[i].selected) {
 				selected.push(options[i].value);

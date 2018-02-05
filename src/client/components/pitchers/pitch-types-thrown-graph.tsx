@@ -57,7 +57,7 @@ export class PitchTypesThrownGraph extends React.Component {
 	 * @returns {object} - the series and drilldown data
 	 */
 	private formatData = (data: PitchObject[]) => {
-		const pitcherData: any = {};
+		const pitcherData: GenericObject = {};
 		const pitchTypes = _.union(_.map(data, 'pitchType'));
 		const pitcherIds = _.union(_.map(data, 'pitcherId'));
 

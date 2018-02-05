@@ -20,23 +20,23 @@ export interface GamesObject {
  * this takes that logic and generalizes it.
  *
  * @param {any[]} reducer - what we will use to iterate over the tree
- * @param {PitchObject[]} data - our data points
+ * @param {GenericObject[]} data - our data points
  * @param {string} reducerKey - the key that helps us identify where in the tree the relevant data is
  * @param {string} dataKey - tells us where to grab the data from at the bottom level
  *
  * @returns {object[]}
  */
-export let formatAvg = (reducer: any[], data: PitchObject[], reducerKey: string, dataKey: string) => {
-	const pitcherData: any = {};
+export let formatAvg = (reducer: string[] | number[], data: GenericObject[], reducerKey: string, dataKey: string) => {
+	const pitcherData: GenericObject = {};
 	_.forEach(reducer, (val) => {
 		const inningData = _.filter(data, { [reducerKey]: val });
-		_.forEach(inningData, (point: PitchObject) => {
+		_.forEach(inningData, (point: GenericObject) => {
 			pitcherData[point.pitcherId] = pitcherData[point.pitcherId] || {
 				data: [],
 				name: point.pitcherName
 			};
 
-			pitcherData[point.pitcherId].data.push(_.round((point as any)[dataKey], 2));
+			pitcherData[point.pitcherId].data.push(_.round(point[dataKey], 2));
 		});
 	});
 

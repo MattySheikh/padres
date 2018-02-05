@@ -90,7 +90,7 @@ export class Pitches {
 	 */
 	public getAvgPaCount = async (queryOptions: GenericObject): Promise<object[]> => {
 		const avgPitchOfPa = [Sequelize.fn('AVG', Sequelize.col('pitchOfPa')), 'avgPitchOfPa'];
-		const where: any = {
+		const where: GenericObject = {
 			[this.Op.or]: [
 			{
 				kOrBB: {

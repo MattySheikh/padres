@@ -15,7 +15,7 @@ interface WhereClause {
 
 interface QueryOptions {
 	model: SequelizeModels;
-	attributes: any;
+	attributes: (string | any[])[];
 	include?: object[];
 	where?: WhereClause;
 	groupBy?: string[];

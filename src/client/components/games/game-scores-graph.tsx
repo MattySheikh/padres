@@ -58,7 +58,7 @@ export class GameScoresGraph extends React.Component {
 	 * @returns {object}[] - of data points
 	 */
 	private formatData = (data: GamesObject[]) => {
-		const pitchersToGames: any = {};
+		const pitchersToGames: GenericObject = {};
 		_.map(data, (d) => {
 			pitchersToGames[d.pitcherId] = pitchersToGames[d.pitcherId] || {
 				name: d.pitcher,
