@@ -1,5 +1,5 @@
 /**
- * Calculates the count of pitch types thrown by a pitcher
+ * Calculates the rate of pitch types thrown by a pitcher
  */
 
 import * as React from 'react';
@@ -33,17 +33,16 @@ export class PitchTypesThrownGraph extends React.Component {
 	public formatConfig = (data: PitchObject[]) => {
 		const formatted = this.formatData(data);
 		return {
-			title: { text: 'Number Of Pitch Types Thrown By Pitcher' },
+			chart: {
+				polar: true
+			},
+			title: { text: '% Of Pitches By Type' },
 			xAxis: {
 				categories: formatted.xAxesValues,
-				title: {
-					text: 'Pitch Type'
-				}
+				tickmarkPlacement: 'on',
 			},
 			yAxis: {
-				title: {
-					text: 'Number of Times Thrown'
-				}
+				gridLineInterpolation: 'polygon'
 			},
 			series: formatted.data
 		};
@@ -60,24 +59,26 @@ export class PitchTypesThrownGraph extends React.Component {
 		const pitcherData: GenericObject = {};
 		const pitchTypes = _.union(_.map(data, 'pitchType'));
 		const pitcherIds = _.union(_.map(data, 'pitcherId'));
+		_.forEach(pitcherIds, (pitcherId) => {
+			let pitchData = _.filter(data, { pitcherId });
+			const totalPitches = _.sum(_.map(pitchData, 'pitchTypeCount'));
+			_.forEach(pitchTypes, (pitchType) => {
+				pitcherData[pitcherId] = pitcherData[pitcherId] || {
+					name: pitchData[0].pitcherName,
+					data: [],
+					pointPlacement: 'on'
+				};
 
-		_.forEach(pitchTypes, (pitchType) => {
-			if (!pitchType) return;
-			let pitchData = _.filter(data, { pitchType });
-			// Not every pitcher will have thrown every pitch type so we need to add them in
-			const pitchersWhoHaveNotThrown = _.difference(pitcherIds, _.map(pitchData, 'pitcherId'));
-			pitchData = [...pitchData, ..._.map(pitchersWhoHaveNotThrown, (id) =>{
-				return { pitcherId: id,  pitchTypeCount: 0 };
-			})];
+				// Default to 0 if they haven't thrown this type of pitch
+				let pct = 0;
 
-			_.forEach(pitchData, (data) => {
-				pitcherData[data.pitcherId] = pitcherData[data.pitcherId] || {
-					name: data.pitcherName,
-					data: []
+				const point = _.find(pitchData, { pitchType })
+				if (point) {
+					pct = _.round(point.pitchTypeCount / totalPitches * 100, 2);
 				}
 
-				pitcherData[data.pitcherId].data.push(data.pitchTypeCount);
-			});
+				pitcherData[pitcherId].data.push(pct);
+			})
 		});
 
 		return {
@@ -91,7 +92,7 @@ export class PitchTypesThrownGraph extends React.Component {
 			<GenericGraph {...{
 				route: this.route,
 				formatConfig: this.formatConfig.bind(this),
-				type: 'BarChart',
+				type: 'LineChart',
 				filters: this.filters
 			}} />
 		);

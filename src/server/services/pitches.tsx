@@ -40,9 +40,16 @@ export class Pitches {
 	 */
 	public getType = async (queryOptions: GenericObject): Promise<object[]> => {
 		const pitchTypeCount = [Sequelize.fn('COUNT', Sequelize.col('pitchType')), 'pitchTypeCount'];
+		const where: GenericObject = {
+			pitchType: {
+				[this.Op.ne]: null
+			}
+		};
+
 		const config = {
 			...queryOptions,
 			model: this.pitchesModel,
+			where: where,
 			attributes: ['pitches.pitcherId', 'pitchType', pitchTypeCount],
 			include: [{
 				model: models.pitchers,

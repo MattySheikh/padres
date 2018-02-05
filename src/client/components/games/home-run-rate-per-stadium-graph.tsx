@@ -77,7 +77,7 @@ export class HomeRunRatePerStadiumGraph extends React.Component {
 				name: d.stadium,
 				data: [
 					['Home Runs', d.hrCount],
-					['Fly Balls', d.flyBallCount - d.hrCount],
+					['Other Fly Balls', d.flyBallCount - d.hrCount],
 				]
 			})
 		});

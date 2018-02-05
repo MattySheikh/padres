@@ -22,7 +22,7 @@ export class GameScoresGraph extends React.Component {
 		return {
 			chart: {
 			},
-			title: { text: 'Fangraphs Game Scores' },
+			title: { text: 'Fangraphs Game Scores and Fastball %' },
 			xAxis: {
 				title: {
 					enabled: true,
@@ -30,7 +30,7 @@ export class GameScoresGraph extends React.Component {
 				}
 			},
 			yAxis: {
-				title: { text: 'Game Scores and Fastball %' }
+				title: { text: 'Fangraphs Game Scores' }
 			},
 			series: [
 				...formattedData,

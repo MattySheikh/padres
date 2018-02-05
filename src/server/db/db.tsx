@@ -10,7 +10,7 @@ interface Columns {
 }
 
 interface WhereClause {
-	pitchType?: string;
+	pitchType?: string | object;
 }
 
 interface QueryOptions {

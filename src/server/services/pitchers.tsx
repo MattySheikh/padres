@@ -73,6 +73,7 @@ export class Pitchers {
 				upperQuadrant: p.breaks[Math.floor(length * .75) - 1],
 				min: Math.min.apply(null, p.breaks),
 				max: Math.max.apply(null, p.breaks),
+				pitchCount: p.breaks.length,
 				median: this.calculateMedian(p.breaks),
 				pitcherName: p.pitcherName,
 				pitcherId: p.pitcherId
@@ -88,7 +89,7 @@ export class Pitchers {
 	 * @returns {number}
 	 */
 	private calculateMedian = (arr: number[]): number => {
-		const half = Math.floor(arr.length/2);
+		const half = Math.floor(arr.length / 2);
 
 		if (arr.length % 2){
 			return arr[half];
