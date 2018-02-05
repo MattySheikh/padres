@@ -26,6 +26,8 @@ if (!fs.existsSync(file)) {
 }
 
 (async () => {
+	// Ignore the linter so we can keep column order here to match the CSV
+	/* tslint:disable:object-literal-sort-keys */
 	const csvColumnsToSqlColumns: ColumnsMap = {
 		gameid: 'gameId',
 		game_date: 'gameDate',
@@ -73,7 +75,7 @@ if (!fs.existsSync(file)) {
 		bearing: 'bearing',
 		hangtime: 'hangtime'
 	};
-
+	/* tslint:enable:object-literal-sort-keys */
 	const sqlColumnsToCsvColumns = _.invert(csvColumnsToSqlColumns);
 
 	// Clear the tables if we have imported before
